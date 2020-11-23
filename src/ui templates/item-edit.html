@@ -7,7 +7,7 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>Material Design Bootstrap</title>
+    <title>Supply Manager</title>
     <!-- Font Awesome -->
     <link
       rel="stylesheet"
@@ -33,7 +33,7 @@
   </head>
   <body>
     <nav class="mb-1 navbar navbar-expand-lg navbar-dark default-color">
-      <a class="navbar-brand" href="#">{{title}}</a>
+      <a class="navbar-brand" href="#">Supply Manager</a>
       <button
         class="navbar-toggler"
         type="button"
@@ -47,14 +47,6 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
         <ul class="navbar-nav mr-auto">
-          <li
-            class="nav-item"
-            v-for="nav in navs"
-            v-bind:nav="nav"
-            v-bind:key="nav.id"
-          >
-            <a class="nav-link" :href="nav.link">{{nav.title}}</a>
-          </li>
           <li class="nav-item active">
             <a class="nav-link" href="#"
               >Home
@@ -123,7 +115,7 @@
       <!-- Sidebar -->
       <nav id="sidebar">
         <div class="sidebar-header">
-          <h3>Bootstrap Sidebar</h3>
+          <h3>SupplyManager</h3>
         </div>
 
         <ul class="list-unstyled components">
