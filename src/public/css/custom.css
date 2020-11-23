@@ -5,7 +5,9 @@
     align-items: stretch;
 }
 
-
+.jumbotron {
+    margin: 6px;
+}
 
 body {
     font-family: 'Poppins', sans-serif;
