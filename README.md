@@ -1,4 +1,4 @@
-# pos
+# vuetify_test
 
 ## Project setup
 ```
