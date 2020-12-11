@@ -13,7 +13,7 @@
         <div v-if="!$vuetify.breakpoint.mobile">
           <v-app-bar-nav-icon @click.stop="mini = !mini"></v-app-bar-nav-icon>
         </div>
-        <v-toolbar-title>Supply Manager</v-toolbar-title>
+        <v-toolbar-title>Project POKA</v-toolbar-title>
       </div>
 
       <v-spacer></v-spacer>
@@ -135,11 +135,7 @@ export default {
     return {
       drawer: true,
       items: [
-        {
-          action: "mdi-ticket",
-          items: [{ title: "List Item", routeName: "routeName" }],
-          title: "Attractions",
-        },
+        
         {
           action: "mdi-basket",
           items: [
@@ -149,31 +145,6 @@ export default {
             { title: "Discounts", routeName: "discounts" },
           ],
           title: "Items",
-        },
-        {
-          action: "mdi-school",
-          items: [{ title: "List Item" }],
-          title: "Education",
-        },
-        {
-          action: "mdi-run",
-          items: [{ title: "List Item" }],
-          title: "Family",
-        },
-        {
-          action: "mdi-bottle-tonic-plus",
-          items: [{ title: "List Item" }],
-          title: "Health",
-        },
-        {
-          action: "mdi-content-cut",
-          items: [{ title: "List Item" }],
-          title: "Office",
-        },
-        {
-          action: "mdi-tag",
-          items: [{ title: "List Item" }],
-          title: "Promotions",
         },
       ],
       mini: true,

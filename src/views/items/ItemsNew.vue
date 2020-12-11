@@ -78,13 +78,87 @@
           </p>
           <v-row>
             <v-col>
-              <v-switch
-                v-model="item.hasVariants"
-                label="Item has variants"
-              ></v-switch>
+              <v-dialog v-model="variantDialog" persistent max-width="500">
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn text color="teal" v-bind="attrs" v-on="on">
+                    <v-icon class="mr-3">mdi-plus-circle-outline</v-icon> Add
+                    Variants
+                  </v-btn>
+                </template>
+                <v-card>
+                  <v-card-title class="headline">
+                    Add Variant
+                  </v-card-title>
+                  <v-card-text>
+                    <v-form ref="variantForm">
+                      <v-container>
+                        <v-row>
+                          <v-col>
+                            <v-text-field
+                              v-model="variant.name"
+                              :rules="variant.nameRules"
+                              label="Variant Name"
+                              required
+                            ></v-text-field>
+                          </v-col>
+                        </v-row>
+                        <v-row>
+                          <v-col>
+                            <v-checkbox
+                              v-model="variant.forSale"
+                              label="The item is available for sale"
+                            ></v-checkbox>
+                          </v-col>
+                        </v-row>
+                        <v-row>
+                          <v-col>
+                            <v-text-field
+                              v-model="variant.price"
+                              label="Price"
+                            ></v-text-field>
+                          </v-col>
+                          <v-col>
+                            <v-text-field
+                              v-model="variant.cost"
+                              label="Cost"
+                            ></v-text-field>
+                          </v-col>
+                        </v-row>
+                        <v-row>
+                          <v-col>
+                            <v-text-field
+                              v-model="variant.sku"
+                              label="SKU"
+                            ></v-text-field>
+                          </v-col>
+                          <v-col>
+                            <v-text-field
+                              v-model="variant.barcode"
+                              label="Barcode"
+                            ></v-text-field>
+                          </v-col>
+                        </v-row>
+                      </v-container>
+                    </v-form>
+                  </v-card-text>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                      color="green darken-1"
+                      text
+                      @click.stop="saveVariant()"
+                    >
+                      Save
+                    </v-btn>
+                    <v-btn text @click="variantDialog = false">
+                      Cancel
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
             </v-col>
           </v-row>
-          <v-row v-if="item.hasVariants">
+          <v-row v-if="hasVariants">
             <v-col>
               <v-simple-table>
                 <template v-slot:default>
@@ -115,17 +189,12 @@
                     <tr v-for="variant in item.variants" :key="variant.id">
                       <td>
                         <v-simple-checkbox
-                          v-model="variant.available"
+                          v-model="variant.forSale"
                           :ripple="false"
                         ></v-simple-checkbox>
                       </td>
                       <td>
-                        <v-text-field
-                          v-model="variant.name"
-                          dense
-                          flat
-                          @change="variantTableUpdate(variant)"
-                        ></v-text-field>
+                        {{ variant.name }}
                       </td>
                       <td>
                         <v-text-field
@@ -204,7 +273,7 @@
                       <th class="text-left">
                         Component
                       </th>
-                      <template v-if="!item.hasVariants">
+                      <template v-if="!hasVariants">
                         <th class="text-left">
                           Quantity
                         </th>
@@ -231,12 +300,20 @@
                           @change="ingrTableUpdate(ingr)"
                         ></v-autocomplete>
                       </td>
-                      <td v-for="variant in item.variants" :key="variant.id">
-                        <v-text-field dense flat>{{
-                          ingr.quantity
-                        }}</v-text-field>
-                      </td>
-
+                      <template v-if="hasVariants">
+                        <td v-for="variant in item.variants" :key="variant.id">
+                          <v-text-field dense flat>{{
+                            ingr.quantity
+                          }}</v-text-field>
+                        </td>
+                      </template>
+                      <template v-else>
+                        <td>
+                          <v-text-field dense flat>{{
+                            ingr.quantity
+                          }}</v-text-field>
+                        </td></template
+                      >
                       <td><v-icon>mdi-delete</v-icon></td>
                     </tr>
                   </tbody>
@@ -245,7 +322,7 @@
             </v-col>
           </v-row>
           <template
-            v-if="item.trackInventory && !item.composite && !item.hasVariants"
+            v-if="item.trackInventory && !item.composite && !hasVariants"
           >
             <v-row>
               <v-col>
@@ -347,6 +424,69 @@
         </v-container>
       </v-card-text>
     </v-card>
+    <!-- Representation on POS -->
+    <v-card max-width="800" class="mt-5">
+      <v-card-title>Representation on POS</v-card-title>
+      <v-card-text>
+        <v-container>
+          <v-row>
+            <v-col>
+              <v-radio-group v-model="item.display" row>
+                <v-radio label="Color" value="color" selected></v-radio>
+                <v-radio label="Image" value="image"></v-radio>
+              </v-radio-group>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col> </v-col>
+          </v-row>
+          <v-row>
+            <v-col v-if="item.display == 'color'">
+              <v-btn
+                fab
+                v-for="buttonColor in colors"
+                :key="buttonColor.name"
+                :color="buttonColor.name"
+                class="mx-2"
+                @click.stop="item.selectedColor = buttonColor.name"
+              >
+                <v-icon v-if="item.selectedColor == buttonColor.name"
+                  >mdi-check-bold</v-icon
+                >
+              </v-btn>
+            </v-col>
+            <v-col v-else>
+              <v-file-input
+                outlined
+                accept="image/png, image/jpeg, image/bmp"
+                placeholder="Pick an image"
+                prepend-icon="mdi-camera"
+                label="Image"
+              ></v-file-input>
+              <v-img
+                class="ml-8"
+                src="https://www.14thstreetpizza.com/website/images/pizzasizes/half-v1.jpg"
+                max-height="300"
+                max-width="300"
+              >
+              </v-img>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-card-text>
+    </v-card>
+    <!-- Action Buttons -->
+    <v-card max-width="800" class="mt-5">
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn dark large color="teal lighten-1" link :to="{ name: 'items' }">
+          Save
+        </v-btn>
+        <v-btn large :to="{ name: 'items' }">
+          Cancel
+        </v-btn>
+      </v-card-actions>
+    </v-card>
   </v-container>
 </template>
 
@@ -365,21 +505,9 @@ export default {
         cost: 0,
         composite: false,
         trackInventory: true,
-        hasVariants: false,
-        variants: [
-          {
-            id: 111,
-            available: true,
-            name: "",
-            price: 0,
-            cost: 0,
-            sku: "",
-            barcode: "",
-            currentStock: 0,
-            optimumStock: 0,
-            lowStock: 0,
-          },
-        ],
+        variants: [],
+        display: "color",
+        selectedColor: "",
       },
       ingredients: [
         {
@@ -387,6 +515,26 @@ export default {
           quantity: 0,
           cost: 0,
         },
+      ],
+      variant: {
+        name: "",
+        price: 0,
+        cost: 0,
+        sku: "123456",
+        barcode: "7891011",
+        forSale: true,
+        nameRules: [(v) => !!v || "Name is required"],
+      },
+      variantDialog: false,
+      colors: [
+        { name: "red", selected: false },
+        { name: "teal", selected: false },
+        { name: "cyan", selected: false },
+        { name: "indigo", selected: false },
+        { name: "pink", selected: false },
+        { name: "amber", selected: false },
+        { name: "green", selected: false },
+        { name: "purple", selected: false },
       ],
     };
   },
@@ -431,15 +579,39 @@ export default {
       }
     },
     delVariant(variant) {
-      console.log(this.item.variants.indexOf(variant));
-      console.log(variant);
-      console.log(this.item.variants);
       this.item.variants.splice(this.item.variants.indexOf(variant), 1);
-      console.log(this.item.variants.indexOf(variant));
-      console.log(variant);
-      console.log(this.item.variants);
+    },
+    saveVariant() {
+      if (this.$refs.variantForm.validate()) {
+        this.item.variants.push({
+          id: this.item.variants.length + 10000,
+          name: this.variant.name,
+          price: this.variant.price,
+          cost: this.variant.cost,
+          forSale: this.variant.forSale,
+          sku: this.variant.sku,
+          barcode: this.variant.barcode,
+          currentStock: 0,
+          optimumStock: 0,
+          lowStock: 0,
+        });
+        this.variant = {
+          name: "",
+          price: 0,
+          cost: 0,
+          sku: "123456",
+          barcode: "7891011",
+          forSale: true,
+          nameRules: [(v) => !!v || "Name is required"],
+        };
+        this.variantDialog = false;
+      }
     },
   },
-  computed: {},
+  computed: {
+    hasVariants: function() {
+      return this.item.variants.length > 0;
+    },
+  },
 };
 </script>
