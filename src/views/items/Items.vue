@@ -5,7 +5,7 @@
         <v-container>
           <v-row>
             <v-col class="pt-6">
-              <v-btn color="teal lighten-1" dark class="mt-3">New Item</v-btn>
+              <v-btn color="teal lighten-1" dark class="mt-3" link :to="{name: 'items-new'}">New Item</v-btn>
               &nbsp;&nbsp;
               <v-btn text class="mt-3">Import</v-btn>
               &nbsp;&nbsp;
