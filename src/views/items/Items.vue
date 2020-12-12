@@ -1,6 +1,6 @@
 <template>
-  <v-container>
-    <v-card>
+
+    <v-card class="mx-5" max-width="80%">
       <v-toolbar flat prominent>
         <v-container>
           <v-row>
@@ -107,7 +107,6 @@
         </v-data-table>
       </v-card>
     </v-card>
-  </v-container>
 </template>
 
 <script>

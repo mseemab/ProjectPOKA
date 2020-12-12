@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <div class="ml-5">
     <!-- Item General Info Card -->
     <v-card max-width="800">
       <v-card-text>
@@ -487,7 +487,7 @@
         </v-btn>
       </v-card-actions>
     </v-card>
-  </v-container>
+  </div>
 </template>
 
 <script>

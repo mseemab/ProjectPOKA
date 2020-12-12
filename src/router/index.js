@@ -31,18 +31,29 @@ const routes = [
   {
     path: '/categories',
     name: 'categories',
-    component: () => import(/* webpackChunkName: "about" */ '../views/items/Items.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/categories/Categories.vue')
+  },
+  {
+    path: '/categories/new',
+    name: 'categories-new',
+    component: () => import(/* webpackChunkName: "about" */ '../views/categories/CategoriesNew.vue')
+  },
+  {
+    path: '/discounts',
+    name: 'discounts',
+    component: () => import(/* webpackChunkName: "about" */ '../views/discounts/Discounts.vue')
+  },
+  {
+    path: '/discounts/new',
+    name: 'discounts-new',
+    component: () => import(/* webpackChunkName: "about" */ '../views/discounts/DiscountsNew.vue')
   },
   {
     path: '/modifiers',
     name: 'modifiers',
     component: () => import(/* webpackChunkName: "about" */ '../views/items/Items.vue')
   },
-  {
-    path: '/discounts',
-    name: 'discounts',
-    component: () => import(/* webpackChunkName: "about" */ '../views/items/Items.vue')
-  }
+ 
 ]
 
 const router = new VueRouter({

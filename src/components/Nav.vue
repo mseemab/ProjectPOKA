@@ -18,14 +18,7 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
+      
     </v-app-bar>
     <v-navigation-drawer
       v-model="drawer"
@@ -141,7 +134,6 @@ export default {
           items: [
             { title: "Item List", routeName: "items" },
             { title: "Categories", routeName: "categories" },
-            { title: "Modifiers", routeName: "modifiers" },
             { title: "Discounts", routeName: "discounts" },
           ],
           title: "Items",
