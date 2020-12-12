@@ -5,21 +5,38 @@
         <v-container>
           <v-row>
             <v-col class="pt-6">
-              <v-btn color="teal lighten-1" dark class="mt-3" link :to="{name: 'items-new'}">New Item</v-btn>
+              <v-btn
+                color="teal lighten-1"
+                dark
+                class="mt-3"
+                link
+                :to="{ name: 'items-new' }"
+                >New Item</v-btn
+              >
               &nbsp;&nbsp;
               <v-btn text class="mt-3">Import</v-btn>
               &nbsp;&nbsp;
               <v-btn text class="mt-3">Export</v-btn>
               &nbsp;&nbsp;
-              <v-btn icon v-if="selected.length" color=red class="pt-2"><v-icon>mdi-delete</v-icon></v-btn>
+              <v-btn icon v-if="selected.length" color="red" class="pt-2"
+                ><v-icon>mdi-delete</v-icon></v-btn
+              >
             </v-col>
             <v-col float="right">
               <v-row>
                 <v-col cols>
-                  <v-select :items="categories" label="Category"></v-select>
+                  <v-select
+                    :items="categories"
+                    label="Category"
+                    v-model="selectedCategory"
+                  ></v-select>
                 </v-col>
                 <v-col cols>
-                  <v-select :items="categories" label="Stock Alert"></v-select>
+                  <v-select
+                    :items="stockAlerts"
+                    label="Stock Alert"
+                    v-model="stockAlert"
+                  ></v-select>
                 </v-col>
               </v-row>
             </v-col>
@@ -36,13 +53,14 @@
             hide-details
           ></v-text-field>
         </v-card-title>
-        <v-data-table 
-        v-model="selected"
-        :headers="headers" 
-        :items="desserts"
-        item-key="id" 
-        :search="search"
-        show-select>
+        <v-data-table
+          v-model="selected"
+          :headers="headers"
+          :items="desserts"
+          item-key="id"
+          :search="search"
+          show-select
+        >
           <template v-slot:item.name="props">
             <v-edit-dialog
               :return-value.sync="props.item.name"
@@ -63,28 +81,26 @@
               </template>
             </v-edit-dialog>
           </template>
-          <template v-slot:item.iron="props">
+          <template v-slot:item.category="props">
             <v-edit-dialog
-              :return-value.sync="props.item.iron"
+              :return-value.sync="props.item.category"
               large
               @save="save"
               @cancel="cancel"
               @open="open"
               @close="close"
             >
-              <div>{{ props.item.iron }}</div>
+              {{ props.item.category }}
               <template v-slot:input>
-                <div class="mt-4 title">
-                  Update Iron
+                <div class="mt-4">
+                  Update Category
                 </div>
-                <v-text-field
-                  :value="props.item.iron"
-                  :rules="[max25chars]"
-                  label="Edit"
-                  single-line
-                  counter
-                  autofocus
-                ></v-text-field>
+                <v-select
+                  v-model="props.item.category"
+                  :items="categories"
+
+                  dense
+                ></v-select>
               </template>
             </v-edit-dialog>
           </template>
@@ -100,114 +116,94 @@ export default {
   name: "Items",
   data() {
     return {
-      categories: ["All Categories", "Pizza", "Burger", "Shawarma"],
+      categories: ["All categories", "Pizza", "Burger", "Wraps"],
+      stockAlerts: ["All items", "Low stock", "Out of stock"],
+      selectedCategory: "All categories",
+      stockAlert: "All items",
       max25chars: (v) => v.length <= 25 || "Input too long!",
       selected: [],
       pagination: {},
       search: "",
       headers: [
         {
-          text: "Dessert (100g serving)",
+          text: "Item name",
           align: "start",
           sortable: false,
           value: "name",
         },
-        { text: "Calories", value: "calories" },
-        { text: "Fat (g)", value: "fat" },
-        { text: "Carbs (g)", value: "carbs" },
-        { text: "Protein (g)", value: "protein" },
-        { text: "Iron (%)", value: "iron" },
+        {
+          text: "Category",
+          value: "category",
+          filter: (value) => {
+            if (this.selectedCategory == "All categories") {
+              return true;
+            }
+            return value == this.selectedCategory;
+          },
+        },
+        { text: "Price", value: "price" },
+        { text: "Cost", value: "cost" },
+        { text: "Margin", value: "margin" },
+        {
+          text: "In stock",
+          value: "inStock",
+          filter: (value) => {
+            if (
+              this.stockAlert == "All items" ||
+              this.stockAlert == "Low stock"
+            ) {
+              return true;
+            } else if (this.stockAlert == "Out of stock") {
+              return value == 0;
+            }
+          },
+        },
       ],
       desserts: [
         {
           id: "1",
-          name: "Frozen Yogurt",
-          calories: 159,
-          fat: 6.0,
-          carbs: 24,
-          protein: 4.0,
-          iron: "1%",
+          name: "Fajita Pizza",
+          category: "Pizza",
+          price: 200,
+          cost: 50,
+          margin: "300%",
+          inStock: 0,
         },
         {
           id: "2",
-          name: "Ice cream sandwich",
-          calories: 237,
-          fat: 9.0,
-          carbs: 37,
-          protein: 4.3,
-          iron: "1%",
+          name: "Bar B Que Pizza",
+          category: "Pizza",
+          price: 210,
+          cost: 60,
+          margin: "300%",
+          inStock: 0,
         },
         {
           id: "3",
-          name: "Eclair",
-          calories: 262,
-          fat: 16.0,
-          carbs: 23,
-          protein: 6.0,
-          iron: "7%",
+          name: "Yummilicious Shawarma",
+          category: "Wraps",
+          price: 100,
+          cost: 50,
+          margin: "100%",
+          inStock: 3,
         },
         {
           id: "4",
-          name: "Cupcake",
-          calories: 305,
-          fat: 3.7,
-          carbs: 67,
-          protein: 4.3,
-          iron: "8%",
+          name: "Zinger Burger",
+          category: "Burger",
+          price: 150,
+          cost: 100,
+          margin: "50%",
+          inStock: 5,
         },
         {
           id: "5",
-          name: "Gingerbread",
-          calories: 356,
-          fat: 16.0,
-          carbs: 49,
-          protein: 3.9,
-          iron: "16%",
-        },
-        {
-          id: "6",
-          name: "Jelly bean",
-          calories: 375,
-          fat: 0.0,
-          carbs: 94,
-          protein: 0.0,
-          iron: "0%",
-        },
-        {
-          id: "7",
-          name: "Lollipop",
-          calories: 392,
-          fat: 0.2,
-          carbs: 98,
-          protein: 0,
-          iron: "2%",
-        },
-        {
-          id: "8",
-          name: "Honeycomb",
-          calories: 408,
-          fat: 3.2,
-          carbs: 87,
-          protein: 6.5,
-          iron: "45%",
-        },
-        {
-          id: "9",
-          name: "Donut",
-          calories: 452,
-          fat: 25.0,
-          carbs: 51,
-          protein: 4.9,
-          iron: "22%",
-        },
-        {
-          id: "10",
-          name: "KitKat",
-          calories: 518,
-          fat: 26.0,
-          carbs: 65,
-          protein: 7,
-          iron: "6%",
+          name: "Grilled Beef Burger",
+          category: "Burger",
+          price: 200,
+          cost: 100,
+          margin: "100%",
+          inStock: 2,
         },
       ],
       vd: {},
