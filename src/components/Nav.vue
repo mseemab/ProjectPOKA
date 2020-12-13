@@ -26,8 +26,6 @@
       mini-variant-width="80"
       clipped
       app
-      dark
-      color="teal lighten-2"
     >
       <v-list nav>
         <v-list-item class="px-2">
@@ -130,13 +128,29 @@ export default {
       items: [
         
         {
+          title: "Items",
           action: "mdi-basket",
           items: [
             { title: "Item List", routeName: "items" },
             { title: "Categories", routeName: "categories" },
             { title: "Discounts", routeName: "discounts" },
           ],
-          title: "Items",
+          
+        },
+        {
+          title: "Employees",
+          action: "mdi-card-account-details",
+          items: [
+            { title: "Employee List", routeName: "employees" },
+            { title: "Roles", routeName: "roles" },
+          ]
+        },
+        {
+          title: "Customers",
+          action: "mdi-account-multiple",
+          items: [
+            { title: "Customers List", routeName: "customers" },
+          ]
         },
       ],
       mini: true,

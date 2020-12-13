@@ -1,5 +1,5 @@
 <template>
-    <v-card max-width="600px" class="ml-5">
+    <v-card max-width="700px" class="ml-5">
       <v-toolbar flat prominent>
         <v-container>
           <v-row>
@@ -9,8 +9,8 @@
                 dark
                 class="mt-3"
                 link
-                :to="{ name: 'categories-new' }"
-                >New Category</v-btn
+                :to="{ name: 'employees-new' }"
+                >Add Employee</v-btn
               >
               <v-btn icon v-if="selected.length" color="red" class="pt-2 mx-3">
                 <v-icon>mdi-delete</v-icon>
@@ -21,18 +21,24 @@
         </v-container>
       </v-toolbar>
       <v-card flat>
+        <v-card-title>
+          <v-text-field
+            v-model="search"
+            append-icon="mdi-magnify"
+            label="Search"
+            single-line
+            hide-details
+          ></v-text-field>
+        </v-card-title>
         <v-data-table
           v-model="selected"
           :headers="headers"
-          :items="categories"
+          :items="employees"
           item-key="id"
+          :search="search"
           show-select
         >
-          <template v-slot:item.name="{ item }">
-            <v-chip :color="item.color" label large class="color-pill mr-4">
-            </v-chip>
-            {{ item.name }}
-          </template>
+          
         </v-data-table>
       </v-card>
     </v-card>
@@ -41,7 +47,7 @@
 <script>
 /* eslint-disable no-debugger */
 export default {
-  name: "Categories",
+  name: "Employees",
   data() {
     return {
       selected: [],
@@ -53,45 +59,43 @@ export default {
           value: "name",
         },
         {
-          text: "Item Count",
-          value: "itemCount",
+          text: "Email",
+          value: "email",
+        },
+        {
+          text: "Phone",
+          value: "phone",
+        },
+        {
+          text: "Role",
+          value: "role",
         },
       ],
-      categories: [
+      employees: [
         {
           id: "1",
-          name: "Pizza",
-          color: "orange",
-          itemCount: 3,
+          name: "John Doe",
+          email: "john@doe.com",
+          phone: "123344444",
+          role: "Owner"
         },
         {
-          id: "2",
-          name: "Burger",
-          color: "purple",
-          itemCount: 4,
+          id: "1",
+          name: "John Doda",
+          email: "john@doda.com",
+          phone: "123344444",
+          role: "POS Operator"
         },
         {
-          id: "3",
-          name: "Wraps",
-          color: "pink",
-          itemCount: 1,
+          id: "1",
+          name: "John Boba",
+          email: "john@boba.com",
+          phone: "123344444",
+          role: "Manager"
         },
       ],
-      vd: {},
     };
-  },
-  methods: {
-    save() {},
-    cancel() {},
-    open() {},
-    close() {},
   },
 };
 </script>
 
-<style scoped>
-.color-pill{
-  width: 50px;
-  height: 80%;
-}
-</style>

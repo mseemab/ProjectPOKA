@@ -476,7 +476,7 @@
       </v-card-text>
     </v-card>
     <!-- Action Buttons -->
-    <v-card max-width="800" class="mt-5">
+    <v-card max-width="800" class="my-5 ">
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn dark large color="teal lighten-1" link :to="{ name: 'items' }">

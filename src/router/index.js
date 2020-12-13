@@ -49,11 +49,35 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/discounts/DiscountsNew.vue')
   },
   {
-    path: '/modifiers',
-    name: 'modifiers',
-    component: () => import(/* webpackChunkName: "about" */ '../views/items/Items.vue')
+    path: '/employees',
+    name: 'employees',
+    component: () => import(/* webpackChunkName: "about" */ '../views/employees/Employees.vue')
   },
- 
+  {
+    path: '/employees/new',
+    name: 'employees-new',
+    component: () => import(/* webpackChunkName: "about" */ '../views/employees/EmployeesNew.vue')
+  },
+  {
+    path: '/roles',
+    name: 'roles',
+    component: () => import(/* webpackChunkName: "about" */ '../views/roles/Roles.vue')
+  },
+  {
+    path: '/roles/new',
+    name: 'roles-new',
+    component: () => import(/* webpackChunkName: "about" */ '../views/roles/RolesNew.vue')
+  },
+  {
+    path: '/customers',
+    name: 'customers',
+    component: () => import(/* webpackChunkName: "about" */ '../views/customers/Customers.vue')
+  },
+  {
+    path: '/customers/new',
+    name: 'customers-new',
+    component: () => import(/* webpackChunkName: "about" */ '../views/customers/CustomersNew.vue')
+  },
 ]
 
 const router = new VueRouter({
