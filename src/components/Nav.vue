@@ -44,7 +44,7 @@
           link
         >
           <template v-slot:activator>
-            <v-menu offset-x>
+            <v-menu offset-x v-if="mini">
               <template v-slot:activator="{ on: menu, attrs }">
                 <v-tooltip right>
                   <template v-slot:activator="{ on: tooltip }">
@@ -79,6 +79,9 @@
                 </v-list-item>
               </v-list>
             </v-menu>
+            <v-list-item-icon v-if=!mini>
+                      <v-icon>{{ item.action }}</v-icon>
+                    </v-list-item-icon>
             <v-list-item-content >
               <v-list-item-title v-text="item.title"></v-list-item-title>
             </v-list-item-content>
@@ -90,28 +93,6 @@
             </v-list-item-content>
           </v-list-item>
         </v-list-group>
-        <!-- <div v-if="!mini">
-          <v-list-group
-            v-for="item in items"
-            :key="item.title"
-            v-model="item.active"
-            :prepend-icon="item.action"
-            no-action
-            link
-          >
-            <template v-slot:activator>
-              <v-list-item-content>
-                <v-list-item-title v-text="item.title"></v-list-item-title>
-              </v-list-item-content>
-            </template>
-
-            <v-list-item v-for="child in item.items" :key="child.title" link>
-              <v-list-item-content>
-                <v-list-item-title v-text="child.title"></v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list-group>
-        </div> -->
       </v-list>
     </v-navigation-drawer>
   </v-container>
