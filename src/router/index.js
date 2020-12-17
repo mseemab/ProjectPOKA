@@ -78,6 +78,11 @@ const routes = [
     name: 'customers-new',
     component: () => import(/* webpackChunkName: "about" */ '../views/customers/CustomersNew.vue')
   },
+  {
+    path: '/pos',
+    name: 'pos',
+    component: () => import(/* webpackChunkName: "about" */ '../views/pos/POS.vue')
+  },
 ]
 
 const router = new VueRouter({
