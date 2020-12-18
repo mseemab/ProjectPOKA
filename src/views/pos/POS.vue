@@ -121,7 +121,46 @@
           <span>Ticket</span>
           <v-spacer></v-spacer>
           <v-btn icon><v-icon>mdi-account-plus</v-icon></v-btn>
-          <v-btn icon><v-icon>mdi-dots-vertical</v-icon></v-btn>
+          <v-menu offset-y close-on-content-click>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn icon v-on="on" v-bind="attrs"
+                ><v-icon>mdi-dots-vertical</v-icon></v-btn
+              >
+            </template>
+            <v-list dense>
+              <v-dialog max-width="290" v-model="clearTicketDialog">
+                <template v-slot:activator="{ on, attrs }">
+                  <v-list-item link v-on="on" v-bind="attrs">
+                    <v-list-item-icon>
+                      <v-icon>mdi-delete</v-icon>
+                    </v-list-item-icon>
+                    Clear Ticket
+                  </v-list-item>
+                </template>
+                <v-card>
+                  <v-card-title class="headline">
+                    Clear Ticket?
+                  </v-card-title>
+                  <v-card-text
+                    >Are you sure you want to clear the ticket?</v-card-text
+                  >
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                      color="green darken-1"
+                      text
+                      @click="clearTicketDialog = false"
+                    >
+                      Cancel
+                    </v-btn>
+                    <v-btn color="green darken-1" text @click="clearTicket()">
+                      Agree
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+            </v-list>
+          </v-menu>
         </v-toolbar>
         <v-list class="mt-5" dense>
           <v-list-item v-for="item in receipt.items" :key="item.name">
@@ -175,10 +214,8 @@
           </v-list-item></v-list
         >
         <v-card-actions class="card-actions">
-          <v-btn-toggle v-model="btnToggle">
-            <v-btn color="teal lighten-1" block dark>SAVE</v-btn>
-            <v-btn color="teal lighten-1" block dark>CHARGE</v-btn>
-          </v-btn-toggle>
+          <v-btn color="teal lighten-1" block dark>SAVE</v-btn>
+          <v-btn color="teal lighten-1" block dark>CHARGE</v-btn>
         </v-card-actions>
       </v-col>
     </v-row>
@@ -190,6 +227,7 @@ export default {
   name: "POS",
   data: function() {
     return {
+      clearTicketDialog: false,
       btnToggle: "",
       catSelect: "All",
       search: "",
@@ -850,6 +888,15 @@ export default {
       this.receipt.items.forEach(
         (item) => (this.receipt.total += item.priceTotal)
       );
+    },
+    clearTicket: function() {
+      this.receipt = {
+        items: [],
+        discount: 0,
+        tax: 0,
+        total: 0,
+      };
+      this.clearTicketDialog = false;
     },
   },
 };
