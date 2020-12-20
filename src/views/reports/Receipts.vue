@@ -1,25 +1,24 @@
 <template>
   <div class="ml-5">
     <v-row class="filter-card-row">
-      <v-col>
+      <v-col class="pa-3">
         <v-card>
           <v-menu
-            ref="dateMenu"
-            v-model="dateMenu"
-            :close-on-content-click="false"
-            :return-value.sync="dates"
-            transition="scale-transition"
-            min-width="290px"
+              ref="dateMenu"
+              v-model="dateMenu"
+              :close-on-content-click="false"
+              :return-value.sync="dates"
+              transition="scale-transition"
+              min-width="290px"
           >
             <template v-slot:activator="{ on, attrs }">
               <v-text-field
-                dense
-                class="mx-5"
-                v-model="dateRange"
-                prepend-inner-icon="mdi-calendar"
-                readonly
-                v-bind="attrs"
-                v-on="on"
+                  class="mx-5"
+                  v-model="dateRange"
+                  prepend-inner-icon="mdi-calendar"
+                  readonly
+                  v-bind="attrs"
+                  v-on="on"
               ></v-text-field>
             </template>
             <v-date-picker v-model="dates" no-title scrollable range>
@@ -34,16 +33,15 @@
           </v-menu>
         </v-card>
       </v-col>
-      <v-col>
-        <v-card>
+      <v-col class="">
+        <v-card class="px-3">
           <v-select
-            dense
-            class="mx-5"
-            :items="employees"
-            v-model="employeeSelected"
-            multiple
+              :items="employees"
+              v-model="employeeSelected"
+              multiple
           ></v-select>
         </v-card>
+
       </v-col>
     </v-row>
 
@@ -72,18 +70,18 @@
       <v-card flat>
         <v-card-title>
           <v-text-field
-            v-model="search"
-            append-icon="mdi-magnify"
-            label="Search"
-            single-line
-            hide-details
+              v-model="search"
+              append-icon="mdi-magnify"
+              label="Search"
+              single-line
+              hide-details
           ></v-text-field>
         </v-card-title>
         <v-data-table
-          :headers="headers"
-          :items="desserts"
-          item-key="id"
-          :search="search"
+            :headers="headers"
+            :items="desserts"
+            item-key="id"
+            :search="search"
         >
         </v-data-table>
       </v-card>
@@ -93,7 +91,7 @@
 
 <script>
 export default {
-  data: function() {
+  data: function () {
     return {
       dates: [],
       search: "",
@@ -131,9 +129,9 @@ export default {
           text: "Date",
           value: "dateCreated",
         },
-        { text: "Employee", value: "employee" },
-        { text: "Customer", value: "customer" },
-        { text: "Type", value: "type" },
+        {text: "Employee", value: "employee"},
+        {text: "Customer", value: "customer"},
+        {text: "Type", value: "type"},
         {
           text: "Total",
           value: "total",
@@ -189,7 +187,7 @@ export default {
     };
   },
   computed: {
-    dateRange: function() {
+    dateRange: function () {
       if (this.dates.length == 2) {
         return this.dates[0] + " to " + this.dates[1];
       }
@@ -204,6 +202,7 @@ export default {
   width: 80%;
   margin-top: 20px;
 }
+
 .filter-card-row {
   width: 50%;
 }

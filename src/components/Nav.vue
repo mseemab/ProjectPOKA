@@ -111,6 +111,7 @@ export default {
         {
           title: "Reports",
           action: "mdi-chart-bar-stacked",
+          routeName: "",
           items: [
             { title: "Sales Summary", routeName: "reports-summary-sales" },
             {
@@ -123,6 +124,7 @@ export default {
         {
           title: "Items",
           action: "mdi-basket",
+          routeName: "",
           items: [
             { title: "Item List", routeName: "items" },
             { title: "Categories", routeName: "categories" },
@@ -132,6 +134,7 @@ export default {
         {
           title: "Employees",
           action: "mdi-card-account-details",
+          routeName: "",
           items: [
             { title: "Employee List", routeName: "employees" },
             { title: "Roles", routeName: "roles" },
@@ -139,8 +142,15 @@ export default {
         },
         {
           title: "Customers",
+          routeName: "customers",
           action: "mdi-account-multiple",
           items: [{ title: "Customers List", routeName: "customers" }],
+        },
+        {
+          routeName: "settings",
+          title: "Settings",
+          action: "mdi-cog",
+          items: [{ title: "Settings", routeName: "settings" }],
         },
       ],
       mini: true,

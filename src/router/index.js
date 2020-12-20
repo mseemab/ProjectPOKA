@@ -98,6 +98,11 @@ const routes = [
     name: 'reports-summary-items',
     component: () => import(/* webpackChunkName: "about" */ '../views/reports/SalesSummaryItems.vue')
   },
+  {
+    path: '/settings',
+    name: 'settings',
+    component: () => import(/* webpackChunkName: "about" */ '../views/settings/Settings.vue')
+  },
 ]
 
 const router = new VueRouter({
