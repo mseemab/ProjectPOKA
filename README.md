@@ -1,4 +1,4 @@
-# vuetify_test
+# ProjectPOKA
 
 ## Project setup
 ```
