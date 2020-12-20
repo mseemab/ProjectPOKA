@@ -17,8 +17,6 @@
       </div>
 
       <v-spacer></v-spacer>
-
-      
     </v-app-bar>
     <v-navigation-drawer
       v-model="drawer"
@@ -69,26 +67,29 @@
                   v-for="child in item.items"
                   :key="child.title"
                   link
-                  :to="{name: child.routeName}"
+                  :to="{ name: child.routeName }"
                 >
-                
                   <v-list-item-content>
                     <v-list-item-title v-text="child.title"></v-list-item-title>
                   </v-list-item-content>
-                  
                 </v-list-item>
               </v-list>
             </v-menu>
-            <v-list-item-icon v-if=!mini>
-                      <v-icon>{{ item.action }}</v-icon>
-                    </v-list-item-icon>
+            <v-list-item-icon v-if="!mini">
+              <v-icon>{{ item.action }}</v-icon>
+            </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title v-text="item.title"></v-list-item-title>
             </v-list-item-content>
           </template>
 
-          <v-list-item v-for="child in item.items" :key="child.title" link :to="{name: child.routeName}">
-            <v-list-item-content >
+          <v-list-item
+            v-for="child in item.items"
+            :key="child.title"
+            link
+            :to="{ name: child.routeName }"
+          >
+            <v-list-item-content>
               <v-list-item-title v-text="child.title"></v-list-item-title>
             </v-list-item-content>
           </v-list-item>
@@ -107,7 +108,18 @@ export default {
     return {
       drawer: true,
       items: [
-        
+        {
+          title: "Reports",
+          action: "mdi-chart-bar-stacked",
+          items: [
+            { title: "Sales Summary", routeName: "reports-summary-sales" },
+            {
+              title: "Sales By Items Summary",
+              routeName: "reports-summary-items",
+            },
+            { title: "Receipts", routeName: "reports-receipts" },
+          ],
+        },
         {
           title: "Items",
           action: "mdi-basket",
@@ -116,7 +128,6 @@ export default {
             { title: "Categories", routeName: "categories" },
             { title: "Discounts", routeName: "discounts" },
           ],
-          
         },
         {
           title: "Employees",
@@ -124,14 +135,12 @@ export default {
           items: [
             { title: "Employee List", routeName: "employees" },
             { title: "Roles", routeName: "roles" },
-          ]
+          ],
         },
         {
           title: "Customers",
           action: "mdi-account-multiple",
-          items: [
-            { title: "Customers List", routeName: "customers" },
-          ]
+          items: [{ title: "Customers List", routeName: "customers" }],
         },
       ],
       mini: true,

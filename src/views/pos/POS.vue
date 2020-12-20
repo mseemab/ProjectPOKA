@@ -843,10 +843,7 @@ export default {
   methods: {
     addToCart: function(addItem, addVariant = null) {
       if (addVariant != null) {
-        if (
-          this.receipt.items.filter((item) => item.variant == addVariant)
-            .length == 0
-        ) {
+        if (!this.receipt.items.find((item) => item.variant == addVariant)) {
           this.receipt.items.push({
             item: addItem,
             variant: addVariant,
@@ -854,19 +851,14 @@ export default {
             priceTotal: addVariant.price,
           });
         } else {
-          this.receipt.items.filter(
+          let item = this.receipt.items.find(
             (item) => item.variant == addVariant
-          )[0].count += 1;
-          this.receipt.items.filter(
-            (item) => item.variant == addVariant
-          )[0].priceTotal =
-            this.receipt.items.filter((item) => item.variant == addVariant)[0]
-              .count * addVariant.price;
+          );
+          item.count += 1;
+          item.priceTotal = item.count * addVariant.price;
         }
       } else {
-        if (
-          this.receipt.items.filter((item) => item.item == addItem).length == 0
-        ) {
+        if (!this.receipt.items.find((item) => item.item == addItem)) {
           this.receipt.items.push({
             item: addItem,
             variant: addVariant,
@@ -874,14 +866,11 @@ export default {
             priceTotal: addItem.price,
           });
         } else {
-          this.receipt.items.filter(
-            (item) => item.item == addItem
-          )[0].count += 1;
-          this.receipt.items.filter(
-            (item) => item.item == addItem
-          )[0].priceTotal =
-            this.receipt.items.filter((item) => item.item == addItem)[0].count *
-            addItem.price;
+          let item = this.receipt.items.find(
+            (item) => item.variant == addVariant
+          );
+          item.count += 1;
+          item.priceTotal = item.count * addItem.price;
         }
       }
       this.receipt.total = 0;

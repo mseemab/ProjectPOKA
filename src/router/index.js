@@ -83,6 +83,21 @@ const routes = [
     name: 'pos',
     component: () => import(/* webpackChunkName: "about" */ '../views/pos/POS.vue')
   },
+  {
+    path: '/reports/receipts',
+    name: 'reports-receipts',
+    component: () => import(/* webpackChunkName: "about" */ '../views/reports/Receipts.vue')
+  },
+  {
+    path: '/reports/summary/sales',
+    name: 'reports-summary-sales',
+    component: () => import(/* webpackChunkName: "about" */ '../views/reports/SalesSummary.vue')
+  },
+  {
+    path: '/reports/summary/items',
+    name: 'reports-summary-items',
+    component: () => import(/* webpackChunkName: "about" */ '../views/reports/SalesSummaryItems.vue')
+  },
 ]
 
 const router = new VueRouter({
