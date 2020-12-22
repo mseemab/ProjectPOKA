@@ -365,7 +365,6 @@
                 </v-dialog>
                 <v-btn small text color="grey darken-2" v-if="selectedPOSDevices.length">
                   <v-icon>mdi-delete</v-icon>
-                  Delete
                 </v-btn>
               </v-col>
               <v-col cols="4">
@@ -386,7 +385,7 @@ export default {
   name: "settings",
   data: function () {
     return {
-      menuSelected: {name: 'POSDevices', label: 'POS Devices'},
+      menuSelected: {name: 'features', label: 'Features'},
       settingsMenu: [
         {name: 'features', label: 'Features'},
         {name: 'paymentTypes', label: 'Payment types'},
