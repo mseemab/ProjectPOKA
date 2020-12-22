@@ -56,7 +56,7 @@
                   <span>{{ item.title }}</span>
                 </v-tooltip>
               </template>
-              <v-list>
+              <v-list dense>
                 <v-list-item dark class="teal lighten-2">
                   <v-list-item-content
                     ><h4>{{ item.title }}</h4></v-list-item-content
@@ -84,6 +84,7 @@
           </template>
 
           <v-list-item
+              dense
             v-for="child in item.items"
             :key="child.title"
             link
