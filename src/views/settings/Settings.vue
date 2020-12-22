@@ -16,7 +16,7 @@
           <v-divider></v-divider>
           <v-card-text class="mt-n4">
             <v-list class="mb-n3">
-              <v-list-item-group v-model="menuSelected">
+              <v-list-item-group v-model="menuSelected" mandatory>
                 <v-list-item v-for="item in settingsMenu" :value="item" :key="item.name">
                   {{ item.label }}
                 </v-list-item>
@@ -385,7 +385,7 @@ export default {
   name: "settings",
   data: function () {
     return {
-      menuSelected: {name: 'features', label: 'Features'},
+      menuSelected: {},
       settingsMenu: [
         {name: 'features', label: 'Features'},
         {name: 'paymentTypes', label: 'Payment types'},
