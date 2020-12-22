@@ -129,6 +129,7 @@ export default {
             { title: "Item List", routeName: "items" },
             { title: "Categories", routeName: "categories" },
             { title: "Discounts", routeName: "discounts" },
+            { title: "Menus", routeName: "menus" },
           ],
         },
         {
