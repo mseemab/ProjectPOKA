@@ -1,53 +1,52 @@
 <template>
   <div class="ml-5">
     <v-row class="filter-card-row">
-      <v-col class="pa-3">
-        <v-card>
-          <v-menu
-              ref="dateMenu"
-              v-model="dateMenu"
-              :close-on-content-click="false"
-              :return-value.sync="dates"
-              transition="scale-transition"
-              min-width="290px"
-          >
-            <template v-slot:activator="{ on, attrs }">
-              <v-text-field
-                  class="mx-5"
-                  v-model="dateRange"
-                  prepend-inner-icon="mdi-calendar"
-                  readonly
-                  v-bind="attrs"
-                  v-on="on"
-              ></v-text-field>
-            </template>
-            <v-date-picker v-model="dates" no-title scrollable range>
-              <v-spacer></v-spacer>
-              <v-btn text color="primary" @click="dateMenu = false">
-                Cancel
-              </v-btn>
-              <v-btn text color="primary" @click="$refs.dateMenu.save(dates)">
-                OK
-              </v-btn>
-            </v-date-picker>
-          </v-menu>
-        </v-card>
+      <v-col cols="5" class="ml-1">
+        <v-btn tile color="white" class="px-2 grey--text text--darken-1" min-width="45px">
+          <v-icon size="20">mdi-less-than</v-icon>
+        </v-btn>
+        <v-menu
+            ref="dateMenu"
+            v-model="dateMenu"
+            :close-on-content-click="false"
+            :return-value.sync="dates"
+            transition="scale-transition"
+            min-width="290px"
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn tile color="white" class="grey--text text--darken-1 body-2 text-lowercase" min-width="200" v-bind="attrs"
+                   v-on="on">
+              <v-icon class="mr-1">mdi-calendar</v-icon>
+              {{ dateRange }}
+            </v-btn>
+          </template>
+          <v-date-picker v-model="dates" no-title scrollable range>
+            <v-spacer></v-spacer>
+            <v-btn text color="primary" @click="dateMenu = false">
+              Cancel
+            </v-btn>
+            <v-btn text color="primary" @click="$refs.dateMenu.save(dates)">
+              OK
+            </v-btn>
+          </v-date-picker>
+        </v-menu>
+        <v-btn tile color="white" class="px-2 grey--text text--darken-1" min-width="45px">
+          <v-icon size="20">mdi-greater-than</v-icon>
+        </v-btn>
       </v-col>
-      <v-col class="">
-        <v-card class="px-3">
-          <v-select
-              :items="employees"
-              v-model="employeeSelected"
-              multiple
-          ></v-select>
-        </v-card>
-
+      <v-col cols="2" class="ml-n10">
+        <v-select :items="stores" item-text="name" item-value="name" dense solo multiple class="rounded-0"
+                  height="30" label="Stores"
+                  :menu-props="{offsetY: true }"></v-select>
+      </v-col>
+      <v-col cols="2">
+        <v-select :items="employees" dense solo multiple class="rounded-0" height="30" label="Employees"
+                  :menu-props="{offsetY: true }"></v-select>
       </v-col>
     </v-row>
-
     <v-item-group mandatory active-class="teal lighten-5" v-model="statGroup">
-      <v-row class="stat-card-row">
-        <v-col cols="12" md="4" v-for="stat in stats" :key="stat.name">
+      <v-row class="stat-card-row ml-0">
+        <v-col cols="12" md="4" v-for="stat in stats" :key="stat.name" class="ma-0 pa-1">
           <v-item v-slot="{ active, toggle }" :value="stat.name">
             <v-card height="100" @click="toggle">
               <div class="d-flex flex-no-wrap justify-center">
@@ -66,20 +65,27 @@
         </v-col>
       </v-row>
     </v-item-group>
-    <v-card class="mt-5" max-width="80%">
+    <v-card class="my-10" max-width="80%">
       <v-card flat>
-        <v-card-title>
-          <v-text-field
-              v-model="search"
-              append-icon="mdi-magnify"
-              label="Search"
-              single-line
-              hide-details
-          ></v-text-field>
-        </v-card-title>
+        <v-row class="mx-2">
+          <v-col>
+            <v-btn text class="mt-2">Export</v-btn>
+          </v-col>
+          <v-col>
+            <v-text-field
+                v-model="search"
+                append-icon="mdi-magnify"
+                label="Search"
+                single-line
+                hide-details
+                class="ma-0"
+            ></v-text-field>
+          </v-col>
+        </v-row>
         <v-data-table
+            class="mx-3"
             :headers="headers"
-            :items="desserts"
+            :items="receipts"
             item-key="id"
             :search="search"
         >
@@ -97,8 +103,15 @@ export default {
       search: "",
       statGroup: "",
       dateMenu: false,
-      employeeSelected: ["All Employees"],
-      employees: ["All Employees", "Owner"],
+      employeeSelected: ["Owner"],
+      employees: ["Owner"],
+      storeSelected: ['Store 1'],
+      stores: [
+        {name: 'Store 1', address: '', phone: '', description: '', POSCount: 0},
+        {name: 'Store 2', address: '', phone: '', description: '', POSCount: 0},
+        {name: 'Store 3', address: '', phone: '', description: '', POSCount: 0},
+
+      ],
       stats: [
         {
           name: "All Receipts",
@@ -137,7 +150,7 @@ export default {
           value: "total",
         },
       ],
-      desserts: [
+      receipts: [
         {
           id: "1",
           receiptNo: "10001",
@@ -200,10 +213,9 @@ export default {
 <style scoped>
 .stat-card-row {
   width: 80%;
-  margin-top: 20px;
 }
 
 .filter-card-row {
-  width: 50%;
+  width: 70%;
 }
 </style>
