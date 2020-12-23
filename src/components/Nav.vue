@@ -17,6 +17,7 @@
       </div>
 
       <v-spacer></v-spacer>
+      <v-btn fab color="teal lighten-1" class="mr-5" dark :to="{ name: 'pos' }"><v-icon>mdi-cash-register</v-icon></v-btn>
     </v-app-bar>
     <v-navigation-drawer
       v-model="drawer"
@@ -131,6 +132,7 @@ export default {
             { title: "Categories", routeName: "categories" },
             { title: "Discounts", routeName: "discounts" },
             { title: "Menus", routeName: "menus" },
+            { title: "Deals", routeName: "deals" },
           ],
         },
         {
