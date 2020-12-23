@@ -195,9 +195,11 @@
                   {{ item.priceTotal }}
                 </span>
                       </v-list-item-title>
-                      <v-list-item-subtitle v-if="item.variant != null">{{
-                          item.variant.name
-                        }}
+                      <v-list-item-subtitle v-if="item.variant != null">
+                        {{ item.variant.name }}
+                      </v-list-item-subtitle>
+                      <v-list-item-subtitle v-if="item.variant == null">
+                        standard
                       </v-list-item-subtitle>
                     </v-list-item-content>
                   </v-list-item>
