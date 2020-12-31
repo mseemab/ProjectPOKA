@@ -65,7 +65,7 @@
                     </li>
                     <li class="chart-type">
                         <v-select
-                                class="mb-0"
+                                class="mb-0 select-width-200"
                                 v-model="graphType"
                                 :items="items"
                                 item-text="type"
@@ -79,7 +79,7 @@
                     </li>
                     <li class="chart-group-by">
                         <v-select
-                                class="mb-0"
+                                class="mb-0 select-width-200"
                                 v-model="graphFrequency"
                                 :items="frequencyOptions"
                                 item-text="type"
@@ -157,9 +157,12 @@
                 if (this.graphType.type === 'Bar') {
                     dataSet['backgroundColor'] = '#8bc34a';
                 } else {
-                    dataSet['backgroundColor'] = "rgba(241, 248, 233, 0.5)";
-                    dataSet['pointBackgroundColor'] = "rgba(0, 0, 0, 0.1)";
-                    dataSet['fillBackgroundColor'] = 'rgba(241, 248, 233, 0.8)';
+                    dataSet['backgroundColor'] = "rgb(241, 248, 233)";
+                    dataSet['pointBackgroundColor'] = "#ffffff";
+                    dataSet['pointBorderColor'] = 'rgb(139, 195, 74)';
+                    dataSet['pointBorderWidth'] = 3;
+                    dataSet['lineTension'] = 0;
+                    dataSet['borderColor'] = 'rgb(139, 195, 74)';
                     dataSet['radius'] = 4;
                     dataSet['pointRadius'] = 4;
                     dataSet['fill'] = 'origin';
@@ -234,6 +237,10 @@
 
     >>>.v-input__slot {
         margin-bottom: 0px !important;
+    }
+
+    >>>.select-width-200 {
+        width: 200px !important;
     }
 
     ul.chart-panel li {
