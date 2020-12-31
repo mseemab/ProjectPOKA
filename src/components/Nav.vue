@@ -17,6 +17,7 @@
       </div>
 
       <v-spacer></v-spacer>
+      <v-btn fab color="teal lighten-1" class="mr-5" dark :to="{ name: 'pos' }"><v-icon>mdi-cash-register</v-icon></v-btn>
     </v-app-bar>
     <v-navigation-drawer
       v-model="drawer"
@@ -56,7 +57,7 @@
                   <span>{{ item.title }}</span>
                 </v-tooltip>
               </template>
-              <v-list>
+              <v-list dense>
                 <v-list-item dark class="teal lighten-2">
                   <v-list-item-content
                     ><h4>{{ item.title }}</h4></v-list-item-content
@@ -84,6 +85,7 @@
           </template>
 
           <v-list-item
+              dense
             v-for="child in item.items"
             :key="child.title"
             link
@@ -111,6 +113,7 @@ export default {
         {
           title: "Reports",
           action: "mdi-chart-bar-stacked",
+          routeName: "",
           items: [
             { title: "Sales Summary", routeName: "reports-summary-sales" },
             {
@@ -123,15 +126,19 @@ export default {
         {
           title: "Items",
           action: "mdi-basket",
+          routeName: "",
           items: [
             { title: "Item List", routeName: "items" },
             { title: "Categories", routeName: "categories" },
             { title: "Discounts", routeName: "discounts" },
+            { title: "Menus", routeName: "menus" },
+            { title: "Deals", routeName: "deals" },
           ],
         },
         {
           title: "Employees",
           action: "mdi-card-account-details",
+          routeName: "",
           items: [
             { title: "Employee List", routeName: "employees" },
             { title: "Roles", routeName: "roles" },
@@ -139,8 +146,15 @@ export default {
         },
         {
           title: "Customers",
+          routeName: "customers",
           action: "mdi-account-multiple",
           items: [{ title: "Customers List", routeName: "customers" }],
+        },
+        {
+          routeName: "settings",
+          title: "Settings",
+          action: "mdi-cog",
+          items: [{ title: "Settings", routeName: "settings" }],
         },
       ],
       mini: true,

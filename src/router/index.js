@@ -29,6 +29,26 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/items/ItemsNew.vue')
   },
   {
+    path: '/menus',
+    name: 'menus',
+    component: () => import(/* webpackChunkName: "about" */ '../views/menus/Menus.vue')
+  },
+  {
+    path: '/menus/new',
+    name: 'menus-new',
+    component: () => import(/* webpackChunkName: "about" */ '../views/menus/MenusNew.vue')
+  },
+  {
+    path: '/deals',
+    name: 'deals',
+    component: () => import(/* webpackChunkName: "about" */ '../views/deals/Deals.vue')
+  },
+  {
+    path: '/deals/new',
+    name: 'deals-new',
+    component: () => import(/* webpackChunkName: "about" */ '../views/deals/DealsNew.vue')
+  },
+  {
     path: '/categories',
     name: 'categories',
     component: () => import(/* webpackChunkName: "about" */ '../views/categories/Categories.vue')
@@ -97,6 +117,11 @@ const routes = [
     path: '/reports/summary/items',
     name: 'reports-summary-items',
     component: () => import(/* webpackChunkName: "about" */ '../views/reports/SalesSummaryItems.vue')
+  },
+  {
+    path: '/settings',
+    name: 'settings',
+    component: () => import(/* webpackChunkName: "about" */ '../views/settings/Settings.vue')
   },
 ]
 
