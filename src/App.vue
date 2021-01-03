@@ -25,7 +25,7 @@ export default {
 </script>
 
 <style scoped>
-.bg-gray{
-  background-color: rgb(238, 236, 236);
-}
+  .bg-gray{
+    background-color: rgb(238, 236, 236);
+  }
 </style>
