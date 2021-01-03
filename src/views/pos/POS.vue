@@ -13,7 +13,46 @@
                           item-value="name"></v-select>
               </v-col>
             </v-row>
+            <div class="d-flex justify-space-between">
+            <v-col cols="9" class="pa-0 ma-0">
+              <v-slide-group
+                  show-arrows
+                  v-model="catSelect"
 
+              >
+                <v-slide-item
+                    v-for="category in categories"
+                    :key="category.name"
+                    v-slot="{ active, toggle }"
+                    :value="category.name"
+                >
+                  <v-btn
+                      class="mx-2"
+                      :input-value="active"
+                      active-class="teal lighten-1 white--text"
+                      depressed
+                      rounded
+                      @click="toggle"
+                  >
+                    {{ category.name }}
+                  </v-btn>
+                </v-slide-item>
+              </v-slide-group>
+            </v-col>
+            <v-divider vertical class="mr-10"></v-divider>
+            <v-col cols="3" class="pa-0 ma-0 d-flex justify-end mt-n3 mb-2">
+              <span class="mr-4 grey--text mt-4">
+            Page {{ page }} / {{ numberOfPages }}
+          </span>
+              <v-btn fab color="teal lighten-1" dark class="mr-2" @click="formerPage">
+                <v-icon>mdi-arrow-left</v-icon>
+              </v-btn>
+              <v-btn fab color="teal lighten-1" dark class="mr-2" @click="nextPage">
+                <v-icon>mdi-arrow-right</v-icon>
+              </v-btn>
+              <v-btn depressed icon></v-btn>
+            </v-col>
+            </div>
             <v-data-iterator
                 :items="categoryFilteredItems"
                 :search="search"
@@ -90,44 +129,7 @@
 
           </v-card-text>
           <v-card-actions class="d-flex justify-space-between">
-            <v-col cols="9" class="pa-0 ma-0">
-              <v-slide-group
-                  show-arrows
-                  v-model="catSelect"
 
-              >
-                <v-slide-item
-                    v-for="category in categories"
-                    :key="category.name"
-                    v-slot="{ active, toggle }"
-                    :value="category.name"
-                >
-                  <v-btn
-                      class="mx-2"
-                      :input-value="active"
-                      active-class="teal lighten-1 white--text"
-                      depressed
-                      rounded
-                      @click="toggle"
-                  >
-                    {{ category.name }}
-                  </v-btn>
-                </v-slide-item>
-              </v-slide-group>
-            </v-col>
-            <v-divider vertical class="mr-10"></v-divider>
-            <v-col cols="3" class="pa-0 ma-0 d-flex justify-end">
-              <span class="mr-4 grey--text mt-4">
-            Page {{ page }} / {{ numberOfPages }}
-          </span>
-              <v-btn fab color="teal lighten-1" dark class="mr-2" @click="formerPage">
-                <v-icon>mdi-arrow-left</v-icon>
-              </v-btn>
-              <v-btn fab color="teal lighten-1" dark class="mr-2" @click="nextPage">
-                <v-icon>mdi-arrow-right</v-icon>
-              </v-btn>
-              <v-btn depressed icon></v-btn>
-            </v-col>
           </v-card-actions>
         </v-card>
       </v-col>
@@ -1024,6 +1026,7 @@ export default {
           name: "Chips",
           color: "red",
         },
+
       ],
       receipt: {
         items: [],
